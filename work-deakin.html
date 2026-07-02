@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deakin University | Alessandro Arbizzani</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --black: #0F0F0F; --white: #F5F5F5; --grey: #9CA3AF; --mid: #3A3A3A; --green: #4ADE80; --green-dim: #1a4a2e; --surface: #161616; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--black); color: var(--white); font-family: 'Inter', sans-serif; font-size: 17px; line-height: 1.65; overflow-x: hidden; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 20px 48px; background: rgba(15,15,15,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .nav-name { font-size: 15px; font-weight: 600; letter-spacing: 0.04em; color: var(--white); text-decoration: none; }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a { font-size: 14px; color: var(--grey); text-decoration: none; letter-spacing: 0.02em; transition: color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--white); }
+
+  .case-hero { padding: 140px 48px 80px; max-width: 900px; margin: 0 auto; }
+  .back-link { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--grey); text-decoration: none; margin-bottom: 48px; transition: color 0.2s; }
+  .back-link:hover { color: var(--white); }
+  .back-link::before { content: '←'; }
+  .case-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green); margin-bottom: 20px; }
+  .case-headline { font-family: 'DM Serif Display', serif; font-size: clamp(40px, 5vw, 64px); line-height: 1.05; color: var(--white); margin-bottom: 32px; }
+  .case-lede { font-size: 21px; line-height: 1.75; color: var(--grey); max-width: 720px; }
+  .case-lede strong { color: var(--white); font-weight: 500; }
+
+  .case-meta-bar { border-top: 1px solid var(--mid); border-bottom: 1px solid var(--mid); padding: 32px 48px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin: 0; }
+  .meta-item-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); margin-bottom: 8px; }
+  .meta-item-value { font-size: 15px; color: var(--white); }
+
+  .case-body { max-width: 900px; margin: 0 auto; padding: 80px 48px 120px; }
+  .case-section { margin-bottom: 72px; }
+  .case-section-label { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--green); margin-bottom: 20px; }
+  .case-section h2 { font-family: 'DM Serif Display', serif; font-size: clamp(28px, 3vw, 40px); line-height: 1.15; color: var(--white); margin-bottom: 24px; }
+  .case-section p { font-size: 18px; line-height: 1.85; color: var(--grey); margin-bottom: 20px; }
+  .case-section p strong { color: var(--white); font-weight: 500; }
+  .case-section p:last-child { margin-bottom: 0; }
+
+  .pullquote { border-left: 3px solid var(--green); padding: 24px 32px; margin: 48px 0; background: var(--surface); }
+  .pullquote p { font-family: 'DM Serif Display', serif; font-size: 22px; line-height: 1.5; color: var(--white); font-style: italic; margin-bottom: 0; }
+
+  .outcome-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin: 48px 0; }
+  .outcome-block { background: var(--surface); padding: 36px; }
+  .outcome-num { font-family: 'DM Serif Display', serif; font-size: 44px; color: var(--white); line-height: 1; margin-bottom: 8px; }
+  .outcome-label { font-size: 13px; color: var(--grey); line-height: 1.5; }
+  .outcome-label strong { color: var(--green); font-weight: 600; display: block; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; }
+
+  .case-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 80px; border-top: 1px solid var(--mid); padding-top: 2px; }
+  .case-nav-item { background: var(--surface); padding: 36px; text-decoration: none; display: block; transition: background 0.2s; }
+  .case-nav-item:hover { background: #1c1c1c; }
+  .case-nav-dir { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--grey); margin-bottom: 12px; }
+  .case-nav-title { font-size: 18px; font-weight: 700; color: var(--white); }
+  .case-nav-item.next { text-align: right; }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  footer { border-top: 1px solid var(--mid); padding: 32px 48px; display: flex; justify-content: space-between; align-items: center; }
+  .footer-name { font-size: 13px; color: var(--grey); }
+  .footer-links { display: flex; gap: 24px; list-style: none; }
+  .footer-links a { font-size: 13px; color: var(--grey); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--white); }
+
+  @media (max-width: 900px) {
+    nav { padding: 18px 24px; }
+    .nav-links { display: none; }
+    .case-hero { padding: 110px 24px 60px; }
+    .case-meta-bar { grid-template-columns: 1fr 1fr; padding: 24px; }
+    .case-body { padding: 60px 24px 80px; }
+    .outcome-grid { grid-template-columns: 1fr; }
+    .case-nav { grid-template-columns: 1fr; }
+    .case-nav-item.next { text-align: left; }
+    footer { flex-direction: column; gap: 16px; padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-name">Ale Arbizzani</a>
+  <ul class="nav-links">
+    <li><a href="index.html#philosophy">Philosophy</a></li>
+    <li><a href="work.html" class="active">Work</a></li>
+    <li><a href="index.html#football">Football</a></li>
+    <li><a href="coaching.html">Coaching</a></li>
+    <li><a href="index.html#contact">Let's talk</a></li>
+  </ul>
+</nav>
+
+<div class="case-hero">
+  <a href="work.html" class="back-link">All case studies</a>
+  <p class="case-eyebrow">Deakin University Library / 2024 to Present</p>
+  <h1 class="case-headline reveal">Rebuilding a team<br>from the inside out.</h1>
+  <p class="case-lede reveal">
+    This is not a story about a design system or a product launch.
+    It is a story about <strong>what happens when people are running on empty</strong>
+    and the only tool that actually works is showing up for them as a human being first.
+  </p>
+</div>
+
+<div class="case-meta-bar">
+  <div class="meta-item">
+    <div class="meta-item-label">Role</div>
+    <div class="meta-item-value">Manager, Experience Design</div>
+  </div>
+  <div class="meta-item">
+    <div class="meta-item-label">Team size</div>
+    <div class="meta-item-value">7 direct reports</div>
+  </div>
+  <div class="meta-item">
+    <div class="meta-item-label">Context</div>
+    <div class="meta-item-value">Enterprise, Higher Education</div>
+  </div>
+  <div class="meta-item">
+    <div class="meta-item-label">Focus</div>
+    <div class="meta-item-value">Team rebuild, culture, process design</div>
+  </div>
+</div>
+
+<div class="case-body">
+
+  <div class="case-section reveal">
+    <p class="case-section-label">The situation</p>
+    <h2>What I walked into.</h2>
+    <p>Two people had just come back from stress leave. The team had been without a permanent manager for twelve months, fielding rotating leaders with no consistency and no real accountability. There was conflict inside the team and conflict with teams outside it. People were drowning in work that arrived with no context, no scoping, and no logical priority.</p>
+    <p>But the deeper problem was not the workload. It was what the workload had done to the people carrying it. The team had developed a pattern of <strong>seeking external validation at the cost of their own wellbeing</strong>. They were terrified of making mistakes. They worked themselves past their limits because they needed other people to tell them they had done enough. They could not give themselves that.</p>
+    <p>No agile methodology was going to fix that. No new Jira board was going to fix that. This needed something else.</p>
+  </div>
+
+  <div class="pullquote reveal">
+    <p>"The first thing I needed to understand was not what they were working on. It was how they were doing."</p>
+  </div>
+
+  <div class="case-section reveal">
+    <p class="case-section-label">The approach</p>
+    <h2>Trust before process.</h2>
+    <p>I started with one-on-ones. Not to talk about work. To listen. I wanted to understand who these people were, what they were good at that they were not giving themselves credit for, what they were afraid of, and what was happening in their lives outside the office. Because when someone is struggling, the struggle rarely starts at their desk.</p>
+    <p>I made a deliberate choice to be vulnerable myself. I was walking into an environment I had never worked in before, and I said so. I told them what I did not know and what I was going to need from them. That honesty created space for them to be honest back.</p>
+    <p>I did not give answers. I asked questions. I had learned pitchside as a football coach that <strong>if you give someone the answer, you solve today's problem. If you help them find it themselves, you change how they think.</strong> I applied that same principle in every one-on-one, every team conversation, every difficult moment.</p>
+    <p>The shift came slowly. People started bringing me things that were not work. A breakup. A family member being sick. A feeling they could not name. That is when I knew the trust was real, because they were no longer just reporting to me. They were talking to me.</p>
+  </div>
+
+  <div class="case-section reveal">
+    <p class="case-section-label">The structural fix</p>
+    <h2>Protecting people through process.</h2>
+    <p>Once trust was in place, I could look at the systemic problems. The most damaging one was the work intake model. Other teams across the library were creating Jira tickets directly into the team's backlog, with no scoping, no context, and no prioritisation. The team would arrive each morning to a new pile of work they had not agreed to and did not fully understand.</p>
+    <p>I became the gatekeeper. Everything came through me first. I would gather context, push back where needed, scope the request, and only then bring it to the right person on the team. I framed this not as control but as protection, and when I explained it that way, almost everyone understood immediately.</p>
+    <p>The one exception was a stakeholder who had a difficult history with two members of my team. I used that history deliberately. I told him plainly that because of what had happened before, things would go more smoothly if they came through me. He agreed. <strong>I turned the liability into leverage.</strong></p>
+    <p>This process did not just help my team. Other library teams noticed what was happening and adopted the same model. It became an organisational change, not just a team fix.</p>
+  </div>
+
+  <div class="case-section reveal">
+    <p class="case-section-label">The bigger picture</p>
+    <h2>Making the invisible visible.</h2>
+    <p>Alongside the team work, I established a monthly cross-library data sharing forum. Analytics leads and UX researchers from across different directorates came together to share what they were seeing. It sounds simple. But it had never existed before.</p>
+    <p>The first session surfaced something nobody had known: the foot traffic sensor counting visitors at the library entrance had been inaccurate for months. That single discovery triggered a procurement review and a broader conversation about how the library was measuring impact. <strong>The forum did not just share data. It changed how the organisation asked questions about itself.</strong></p>
+  </div>
+
+  <div class="outcome-grid reveal">
+    <div class="outcome-block">
+      <div class="outcome-num">10%+</div>
+      <div class="outcome-label"><strong>Result</strong>Team outperformed the entire university on engagement in the 2025 Pulse Survey</div>
+    </div>
+    <div class="outcome-block">
+      <div class="outcome-num">Adopted</div>
+      <div class="outcome-label"><strong>Result</strong>Work intake model picked up by other library teams without being mandated</div>
+    </div>
+    <div class="outcome-block">
+      <div class="outcome-num">Built</div>
+      <div class="outcome-label"><strong>Result</strong>First cross-library data sharing forum, now a standing monthly ritual</div>
+    </div>
+  </div>
+
+  <div class="case-section reveal">
+    <p class="case-section-label">What I learned</p>
+    <h2>The honest reflection.</h2>
+    <p>I delayed some uncomfortable conversations longer than I should have. There was a team member whose performance issues I documented too lightly, partly because of everything else she was carrying personally, and partly because I prioritised keeping delivery moving. If things had escalated, I would have been underprepared. I know that now.</p>
+    <p>The lesson is not to be harder or colder. It is to do the human work and the accountability work at the same time, not one instead of the other. Empathy and standards are not in tension. <strong>The best leaders hold both.</strong></p>
+  </div>
+
+  <div class="case-nav reveal">
+    <div></div>
+    <a href="work-mojo.html" class="case-nav-item next">
+      <div class="case-nav-dir">Next case study</div>
+      <div class="case-nav-title">Building Mojo Crowe from zero</div>
+    </a>
+  </div>
+
+</div>
+
+<footer>
+  <span class="footer-name">Alessandro Arbizzani 2025</span>
+  <ul class="footer-links">
+    <li><a href="https://www.linkedin.com/in/alessandroarbizzani" target="_blank">LinkedIn</a></li>
+    <li><a href="mailto:ale.arbizzani@gmail.com">Email</a></li>
+  </ul>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

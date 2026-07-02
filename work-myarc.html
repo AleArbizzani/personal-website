@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MyARC | Alessandro Arbizzani</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --black: #0F0F0F; --white: #F5F5F5; --grey: #9CA3AF; --mid: #3A3A3A; --green: #4ADE80; --green-dim: #1a4a2e; --surface: #161616; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--black); color: var(--white); font-family: 'Inter', sans-serif; font-size: 17px; line-height: 1.65; overflow-x: hidden; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 20px 48px; background: rgba(15,15,15,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .nav-name { font-size: 15px; font-weight: 600; letter-spacing: 0.04em; color: var(--white); text-decoration: none; }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a { font-size: 14px; color: var(--grey); text-decoration: none; letter-spacing: 0.02em; transition: color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--white); }
+
+  .case-hero { padding: 140px 48px 80px; max-width: 900px; margin: 0 auto; }
+  .back-link { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--grey); text-decoration: none; margin-bottom: 48px; transition: color 0.2s; }
+  .back-link:hover { color: var(--white); }
+  .back-link::before { content: '←'; }
+  .case-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green); margin-bottom: 20px; }
+  .case-headline { font-family: 'DM Serif Display', serif; font-size: clamp(40px, 5vw, 64px); line-height: 1.05; color: var(--white); margin-bottom: 32px; }
+  .case-lede { font-size: 21px; line-height: 1.75; color: var(--grey); max-width: 720px; }
+  .case-lede strong { color: var(--white); font-weight: 500; }
+
+  .case-meta-bar { border-top: 1px solid var(--mid); border-bottom: 1px solid var(--mid); padding: 32px 48px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .meta-item-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); margin-bottom: 8px; }
+  .meta-item-value { font-size: 15px; color: var(--white); }
+
+  .case-body { max-width: 900px; margin: 0 auto; padding: 80px 48px 120px; }
+  .case-section { margin-bottom: 72px; }
+  .case-section-label { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--green); margin-bottom: 20px; }
+  .case-section h2 { font-family: 'DM Serif Display', serif; font-size: clamp(28px, 3vw, 40px); line-height: 1.15; color: var(--white); margin-bottom: 24px; }
+  .case-section p { font-size: 18px; line-height: 1.85; color: var(--grey); margin-bottom: 20px; }
+  .case-section p strong { color: var(--white); font-weight: 500; }
+  .case-section p:last-child { margin-bottom: 0; }
+
+  .pullquote { border-left: 3px solid var(--green); padding: 24px 32px; margin: 48px 0; background: var(--surface); }
+  .pullquote p { font-family: 'DM Serif Display', serif; font-size: 22px; line-height: 1.5; color: var(--white); font-style: italic; margin-bottom: 0; }
+
+  .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin: 48px 0; }
+  .feature-block { background: var(--surface); padding: 36px; }
+  .feature-title { font-size: 15px; font-weight: 700; color: var(--white); margin-bottom: 12px; padding-bottom: 12px; border-bottom: 2px solid var(--green); }
+  .feature-desc { font-size: 14px; color: var(--grey); line-height: 1.7; }
+
+  .image-placeholder { background: var(--surface); height: 420px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; margin: 48px 0; border: 1px dashed #333; }
+  .image-placeholder span { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #444; }
+  .image-placeholder small { font-size: 12px; color: #333; }
+
+  .outcome-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin: 48px 0; }
+  .outcome-block { background: var(--surface); padding: 32px; }
+  .outcome-num { font-family: 'DM Serif Display', serif; font-size: 40px; color: var(--white); line-height: 1; margin-bottom: 8px; }
+  .outcome-label { font-size: 12px; color: var(--grey); line-height: 1.5; }
+  .outcome-label strong { color: var(--green); font-weight: 600; display: block; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; }
+
+  .case-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 80px; border-top: 1px solid var(--mid); padding-top: 2px; }
+  .case-nav-item { background: var(--surface); padding: 36px; text-decoration: none; display: block; transition: background 0.2s; }
+  .case-nav-item:hover { background: #1c1c1c; }
+  .case-nav-dir { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--grey); margin-bottom: 12px; }
+  .case-nav-title { font-size: 18px; font-weight: 700; color: var(--white); }
+  .case-nav-item.next { text-align: right; }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  footer { border-top: 1px solid var(--mid); padding: 32px 48px; display: flex; justify-content: space-between; align-items: center; }
+  .footer-name { font-size: 13px; color: var(--grey); }
+  .footer-links { display: flex; gap: 24px; list-style: none; }
+  .footer-links a { font-size: 13px; color: var(--grey); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--white); }
+
+  @media (max-width: 900px) {
+    nav { padding: 18px 24px; }
+    .nav-links { display: none; }
+    .case-hero { padding: 110px 24px 60px; }
+    .case-meta-bar { grid-template-columns: 1fr 1fr; padding: 24px; }
+    .case-body { padding: 60px 24px 80px; }
+    .features-grid, .outcome-grid { grid-template-columns: 1fr; }
+    .case-nav { grid-template-columns: 1fr; }
+    .case-nav-item.next { text-align: left; }
+    footer { flex-direction: column; gap: 16px; padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-name">Ale Arbizzani</a>
+  <ul class="nav-links">
+    <li><a href="index.html#philosophy">Philosophy</a></li>
+    <li><a href="work.html" class="active">Work</a></li>
+    <li><a href="index.html#football">Football</a></li>
+    <li><a href="coaching.html">Coaching</a></li>
+    <li><a href="index.html#contact">Let's talk</a></li>
+  </ul>
+</nav>
+
+<div class="case-hero">
+  <a href="work.html" class="back-link">All case studies</a>
+  <p class="case-eyebrow">MyARC / 2024 to 2025</p>
+  <h1 class="case-headline reveal">Shipping AI before<br>it was fashionable.</h1>
+  <p class="case-lede reveal">
+    A contract engagement. A fast-moving fitness startup with no product function,
+    no design system, and a team moving at full speed.
+    <strong>Twelve months to build the foundations, ship three AI features,
+    and leave something that kept working after I left.</strong>
+  </p>
+</div>
+
+<div class="case-meta-bar">
+  <div class="meta-item">
+    <div class="meta-item-label">Role</div>
+    <div class="meta-item-value">Product and UX Lead (Contract)</div>
+  </div>
+  <div class="meta-item">
+    <div class="meta-item-label">Product</div>
+    <div class="meta-item-value">Fitness creator mobile app</div>
+  </div>
+  <div class="meta-item">
+    <div class="meta-item-label">Focus</div>
+    <div class="meta-item-value">AI features, ecommerce, design system</div>
+  </div>
+</div>
+
+<div class="case-body">
+
+  <div class="case-section reveal">
+    <p class="case-section-label">The context</p>
+    <h2>Fast team. No foundations.</h2>
+    <p>MyARC enables fitness content creators to monetise their audience through a customised mobile app. When I came in, the team was lean, productive, and moving quickly. They were also burning through money, shipping without a design system, and making UX decisions on feel rather than evidence.</p>
+    <p>There was no product function. No design system. No structured research practice. The founders and developers were making product decisions in real time, which worked at small scale but was creating inconsistency and technical debt as the platform grew.</p>
+    <p>My first job was not to slow them down. <strong>It was to prove that building the foundations would make them faster.</strong> That required earning trust before changing anything.</p>
+  </div>
+
+  <div class="case-section reveal">
+    <p class="case-section-label">The foundation</p>
+    <h2>Building the design system that outlasted the contract.</h2>
+    <p>I audited what existed, consolidated the design language, and built a component system in Figma that covered the full product surface. But the goal was not just to have a design system. The goal was to have a design system the team could use without me.</p>
+    <p>I trained the developers in Figma. Not deeply, but enough. They learned to navigate the system, use existing components, and assemble screens for new features without needing a designer in every conversation. <strong>When my contract ended, the team kept shipping UI independently.</strong> That was the measure of success for this piece of work.</p>
+  </div>
+
+  <div class="image-placeholder reveal">
+    <span>MyARC App Screenshots</span>
+    <small>Replace with app screens from your portfolio</small>
+  </div>
+
+  <div class="case-section reveal">
+    <p class="case-section-label">The AI features</p>
+    <h2>Three features. Real outcomes.</h2>
+    <p>AI was not a strategy at MyARC. It was a practical tool. We shipped three features that used it in ways that genuinely improved the user experience rather than just adding a badge to the app store listing.</p>
+  </div>
+
+  <div class="features-grid reveal">
+    <div class="feature-block">
+      <div class="feature-title">Workout Progress Predictor</div>
+      <div class="feature-desc">AI-driven progressive overload. The system automatically calculates and updates weights based on a user's history and goals, while giving them full control to override the recommendation. The design challenge was making the AI feel like a helpful coach rather than a black box.</div>
+    </div>
+    <div class="feature-block">
+      <div class="feature-title">AI Meal Planner</div>
+      <div class="feature-desc">OpenAI API integrated with each creator's cookbook content. Users could generate personalised meal plans and recipes based on their preferences and dietary needs, with the system remembering choices across sessions. Session length in the nutrition section increased by 1.5 minutes on average.</div>
+    </div>
+    <div class="feature-block">
+      <div class="feature-title">AI Training Assistant</div>
+      <div class="feature-desc">Early-stage AI support for users during training sessions. Designed to feel like a real-time coaching voice rather than a help centre. The interaction model was the hardest design problem: how do you make an AI feel present without feeling intrusive?</div>
+    </div>
+  </div>
+
+  <div class="pullquote reveal">
+    <p>"The question with any AI feature is not 'can we build this?' It is 'does this actually make someone's experience meaningfully better?' If the answer is no, it is just a gimmick."</p>
+  </div>
+
+  <div class="case-section reveal">
+    <p class="case-section-label">The ecommerce work</p>
+    <h2>Fixing the leaky bucket.</h2>
+    <p>Alongside the AI features, I redesigned the checkout and onboarding flows. The original experience had friction at multiple points that was causing users to drop before completing a purchase or completing setup.</p>
+    <p>I ran user research to identify where people were stopping and why, then redesigned the flows based on what I found. The results were measurable: <strong>churn reduced by 36%, consumer conversion increased by 15%, and B2B conversion increased by 45%.</strong> The B2B number in particular reflected a complete rethink of the outreach experience and customer journey for fitness creators signing up to the platform.</p>
+  </div>
+
+  <div class="outcome-grid reveal">
+    <div class="outcome-block">
+      <div class="outcome-num">36%</div>
+      <div class="outcome-label"><strong>Result</strong>Churn reduction after checkout and onboarding redesign</div>
+    </div>
+    <div class="outcome-block">
+      <div class="outcome-num">15%</div>
+      <div class="outcome-label"><strong>Result</strong>Consumer conversion increase</div>
+    </div>
+    <div class="outcome-block">
+      <div class="outcome-num">45%</div>
+      <div class="outcome-label"><strong>Result</strong>B2B conversion increase</div>
+    </div>
+    <div class="outcome-block">
+      <div class="outcome-num">1.5m</div>
+      <div class="outcome-label"><strong>Result</strong>Average session length increase in nutrition section post AI feature launch</div>
+    </div>
+  </div>
+
+  <div class="case-nav reveal">
+    <a href="work-mojo.html" class="case-nav-item">
+      <div class="case-nav-dir">Previous case study</div>
+      <div class="case-nav-title">Building Mojo Crowe from zero</div>
+    </a>
+    <a href="work-deakin.html" class="case-nav-item next">
+      <div class="case-nav-dir">Back to first</div>
+      <div class="case-nav-title">Rebuilding Deakin from the inside out</div>
+    </a>
+  </div>
+
+</div>
+
+<footer>
+  <span class="footer-name">Alessandro Arbizzani 2025</span>
+  <ul class="footer-links">
+    <li><a href="https://www.linkedin.com/in/alessandroarbizzani" target="_blank">LinkedIn</a></li>
+    <li><a href="mailto:ale.arbizzani@gmail.com">Email</a></li>
+  </ul>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

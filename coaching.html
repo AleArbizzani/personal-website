@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coaching | Alessandro Arbizzani</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --black: #0F0F0F; --white: #F5F5F5; --grey: #9CA3AF; --mid: #3A3A3A; --green: #4ADE80; --green-dim: #1a4a2e; --surface: #161616; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--black); color: var(--white); font-family: 'Inter', sans-serif; font-size: 17px; line-height: 1.65; overflow-x: hidden; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 20px 48px; background: rgba(15,15,15,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .nav-name { font-size: 15px; font-weight: 600; letter-spacing: 0.04em; color: var(--white); text-decoration: none; }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a { font-size: 14px; color: var(--grey); text-decoration: none; letter-spacing: 0.02em; transition: color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--white); }
+
+  /* HERO */
+  .coaching-hero { min-height: 90vh; display: flex; flex-direction: column; justify-content: center; padding: 140px 48px 80px; max-width: 1000px; margin: 0 auto; }
+  .hero-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green); margin-bottom: 28px; }
+  .hero-headline { font-family: 'DM Serif Display', serif; font-size: clamp(48px, 6vw, 84px); line-height: 1.05; color: var(--white); margin-bottom: 36px; }
+  .hero-headline em { font-style: italic; color: var(--green); }
+  .hero-sub { font-size: 21px; line-height: 1.8; color: var(--grey); max-width: 680px; }
+  .hero-sub strong { color: var(--white); font-weight: 500; }
+
+  /* SECTIONS */
+  .coaching-section { padding: 100px 48px; max-width: 1000px; margin: 0 auto; border-top: 1px solid var(--mid); }
+  .section-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--green); margin-bottom: 20px; }
+  .section-headline { font-family: 'DM Serif Display', serif; font-size: clamp(34px, 4vw, 52px); line-height: 1.1; color: var(--white); margin-bottom: 32px; }
+  .section-body p { font-size: 19px; line-height: 1.85; color: var(--grey); margin-bottom: 24px; }
+  .section-body p strong { color: var(--white); font-weight: 500; }
+  .section-body p:last-child { margin-bottom: 0; }
+
+  /* WHO IT'S FOR */
+  .audience-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 56px; }
+  .audience-card { background: var(--surface); padding: 48px; }
+  .audience-icon { font-size: 32px; margin-bottom: 20px; }
+  .audience-title { font-size: 20px; font-weight: 700; color: var(--white); margin-bottom: 16px; }
+  .audience-desc { font-size: 16px; color: var(--grey); line-height: 1.75; }
+  .audience-desc strong { color: var(--white); font-weight: 500; }
+  .audience-signals { margin-top: 24px; display: flex; flex-direction: column; gap: 10px; }
+  .signal { font-size: 14px; color: var(--grey); padding-left: 16px; position: relative; line-height: 1.5; }
+  .signal::before { content: ''; position: absolute; left: 0; top: 9px; width: 5px; height: 5px; background: var(--green); border-radius: 50%; }
+
+  /* HOW IT WORKS */
+  .process-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 56px; }
+  .process-step { background: var(--surface); padding: 40px; }
+  .step-number { font-family: 'DM Serif Display', serif; font-size: 48px; color: var(--green); line-height: 1; margin-bottom: 20px; opacity: 0.4; }
+  .step-title { font-size: 17px; font-weight: 700; color: var(--white); margin-bottom: 12px; }
+  .step-desc { font-size: 15px; color: var(--grey); line-height: 1.7; }
+
+  /* WHAT MAKES IT DIFFERENT */
+  .difference-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 56px; align-items: start; }
+  .difference-left p { font-size: 19px; line-height: 1.85; color: var(--grey); margin-bottom: 24px; }
+  .difference-left p strong { color: var(--white); font-weight: 500; }
+  .difference-right { display: flex; flex-direction: column; gap: 2px; }
+  .difference-item { background: var(--surface); padding: 28px 32px; display: flex; gap: 20px; align-items: flex-start; }
+  .difference-label { font-size: 14px; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+  .difference-text { font-size: 14px; color: var(--grey); line-height: 1.6; }
+  .difference-dot { width: 8px; height: 8px; background: var(--green); border-radius: 50%; margin-top: 6px; flex-shrink: 0; }
+
+  /* PULLQUOTE */
+  .pullquote { border-left: 3px solid var(--green); padding: 28px 36px; margin: 56px 0 0; background: var(--surface); }
+  .pullquote p { font-family: 'DM Serif Display', serif; font-size: 24px; line-height: 1.5; color: var(--white); font-style: italic; margin-bottom: 0; }
+
+  /* CTA */
+  .coaching-cta { padding: 120px 48px; text-align: center; border-top: 1px solid var(--mid); }
+  .cta-headline { font-family: 'DM Serif Display', serif; font-size: clamp(36px, 4vw, 56px); line-height: 1.1; color: var(--white); max-width: 680px; margin: 0 auto 20px; }
+  .cta-sub { font-size: 19px; color: var(--grey); max-width: 520px; margin: 0 auto 48px; line-height: 1.75; }
+  .cta-sub strong { color: var(--white); font-weight: 500; }
+  .cta-buttons { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-bottom: 48px; }
+  .btn-primary { background: var(--green); color: var(--black); padding: 16px 32px; font-size: 14px; font-weight: 700; letter-spacing: 0.04em; text-decoration: none; text-transform: uppercase; transition: opacity 0.2s; display: inline-block; }
+  .btn-primary:hover { opacity: 0.85; }
+  .btn-ghost { background: transparent; color: var(--white); padding: 16px 32px; font-size: 14px; font-weight: 600; letter-spacing: 0.04em; text-decoration: none; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.2); transition: border-color 0.2s; display: inline-block; }
+  .btn-ghost:hover { border-color: var(--white); }
+  .cta-note { font-size: 13px; color: #555; letter-spacing: 0.04em; }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  footer { border-top: 1px solid var(--mid); padding: 32px 48px; display: flex; justify-content: space-between; align-items: center; }
+  .footer-name { font-size: 13px; color: var(--grey); }
+  .footer-links { display: flex; gap: 24px; list-style: none; }
+  .footer-links a { font-size: 13px; color: var(--grey); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--white); }
+
+  @media (max-width: 900px) {
+    nav { padding: 18px 24px; }
+    .nav-links { display: none; }
+    .coaching-hero { padding: 120px 24px 60px; min-height: auto; }
+    .coaching-section { padding: 72px 24px; }
+    .audience-grid, .process-grid, .difference-grid { grid-template-columns: 1fr; }
+    .coaching-cta { padding: 80px 24px; }
+    footer { flex-direction: column; gap: 16px; padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-name">Ale Arbizzani</a>
+  <ul class="nav-links">
+    <li><a href="index.html#philosophy">Philosophy</a></li>
+    <li><a href="work.html">Work</a></li>
+    <li><a href="index.html#football">Football</a></li>
+    <li><a href="coaching.html" class="active">Coaching</a></li>
+    <li><a href="index.html#contact">Let's talk</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="coaching-hero">
+  <p class="hero-eyebrow">Performance and Mindset Coaching</p>
+  <h1 class="hero-headline reveal">
+    I work with people<br>who want to<br><em>achieve their dreams.</em>
+  </h1>
+  <p class="hero-sub reveal">
+    Performance coaching for <strong>senior leaders and athletes</strong>
+    who have reached the level where skill is no longer the bottleneck.
+    What holds you back now lives inside you, not on your CV.
+  </p>
+</div>
+
+<!-- WHO IT IS FOR -->
+<div class="coaching-section">
+  <p class="section-eyebrow">Who this is for</p>
+  <h2 class="section-headline reveal">You have done the hard work<br>to get here. Now what?</h2>
+
+  <div class="audience-grid">
+    <div class="audience-card reveal">
+      <div class="audience-icon">🏢</div>
+      <div class="audience-title">Senior Leaders</div>
+      <div class="audience-desc">
+        You are technically excellent and you have proven it. But somewhere between the promotion and today, <strong>the game changed.</strong> The problems are less clear. The stakes are higher. The people around you look to you for answers you are not always sure you have.
+      </div>
+      <div class="audience-signals">
+        <div class="signal">You second-guess decisions you would have made confidently two years ago</div>
+        <div class="signal">You know what you should do but struggle to hold the line under pressure</div>
+        <div class="signal">You lead others well but find it harder to lead yourself</div>
+        <div class="signal">You want to perform at your best consistently, not just on good days</div>
+      </div>
+    </div>
+
+    <div class="audience-card reveal">
+      <div class="audience-icon">⚽</div>
+      <div class="audience-title">Athletes</div>
+      <div class="audience-desc">
+        You train the body. You work the tactics. But <strong>the difference between good and great</strong> at the level you are playing at is almost entirely what happens in your mind before, during, and after the game.
+      </div>
+      <div class="audience-signals">
+        <div class="signal">You perform well in training but something shifts when it counts</div>
+        <div class="signal">One bad decision can derail your whole game</div>
+        <div class="signal">You carry mistakes longer than you should</div>
+        <div class="signal">You want a mental edge that compounds over time, not just a pep talk</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT MAKES IT DIFFERENT -->
+<div class="coaching-section">
+  <p class="section-eyebrow">What makes this different</p>
+  <h2 class="section-headline reveal">This is not advice.<br>It is a process.</h2>
+
+  <div class="difference-grid">
+    <div class="difference-left reveal">
+      <p>
+        Most people who call themselves coaches give you their answer.
+        They tell you what worked for them, or what they read in a book,
+        and they package it as wisdom.
+      </p>
+      <p>
+        <strong>I do not give you answers. I help you find your own.</strong>
+        Because the answer you discover yourself is the one you will actually use.
+        The one someone else gives you is the one you nod at and forget.
+      </p>
+      <p>
+        I learned this on the pitch. You cannot referee for someone else.
+        You cannot make the decision for the player under pressure.
+        You can only build the conditions inside them so that when the moment arrives,
+        they are ready for it.
+      </p>
+      <p>
+        That is what I bring to every coaching relationship.
+        Not a framework. Not a methodology with a name.
+        A genuine belief that <strong>you already have more than you think you have.</strong>
+        My job is to help you access it.
+      </p>
+    </div>
+
+    <div class="difference-right reveal">
+      <div class="difference-item">
+        <div class="difference-dot"></div>
+        <div>
+          <div class="difference-label">15 years of leadership under pressure</div>
+          <div class="difference-text">Not theory. I have built teams from scratch, co-founded a startup, coached at national finals, and navigated the moments where things go wrong. I bring all of that into every session.</div>
+        </div>
+      </div>
+      <div class="difference-item">
+        <div class="difference-dot"></div>
+        <div>
+          <div class="difference-label">Sport and business in the same room</div>
+          <div class="difference-text">The mental skills that make a great match official are the same ones that make a great leader. I move fluently between both worlds because I live in both of them.</div>
+        </div>
+      </div>
+      <div class="difference-item">
+        <div class="difference-dot"></div>
+        <div>
+          <div class="difference-label">Honest, not comfortable</div>
+          <div class="difference-text">I will ask you the question you are hoping I do not ask. That is not cruelty. That is care. The uncomfortable question is usually the one that moves things forward.</div>
+        </div>
+      </div>
+      <div class="difference-item">
+        <div class="difference-dot"></div>
+        <div>
+          <div class="difference-label">You set the agenda</div>
+          <div class="difference-text">We work on what is actually in your way, not a pre-packaged curriculum. Every session starts with where you are right now.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pullquote reveal">
+    <p>"Getting people to find their answer empowers them into feeling stronger and more confident. Then they can actually practice their new mindset. That is the difference between a session that lasts a week and one that changes how you think."</p>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div class="coaching-section">
+  <p class="section-eyebrow">How it works</p>
+  <h2 class="section-headline reveal">Simple. Personal. Honest.</h2>
+
+  <div class="process-grid">
+    <div class="process-step reveal">
+      <div class="step-number">01</div>
+      <div class="step-title">A conversation first</div>
+      <div class="step-desc">We start with a no-pressure conversation. You tell me where you are and what you are trying to work on. I tell you honestly whether I think I can help. No sales pitch. No package presented before we have even spoken.</div>
+    </div>
+    <div class="process-step reveal">
+      <div class="step-number">02</div>
+      <div class="step-title">We find what is actually in the way</div>
+      <div class="step-desc">The presenting problem is rarely the real problem. Before we try to fix anything, we spend time understanding what is actually going on. That takes honesty from you and curiosity from me. Both are non-negotiable.</div>
+    </div>
+    <div class="process-step reveal">
+      <div class="step-number">03</div>
+      <div class="step-title">We build from the inside out</div>
+      <div class="step-desc">Sustainable performance comes from self-awareness, not technique. We work on the internal conditions first. Then we look at behaviour, decisions, and habits. In that order, not the reverse.</div>
+    </div>
+  </div>
+</div>
+
+<!-- BACKGROUND -->
+<div class="coaching-section">
+  <p class="section-eyebrow">Where this comes from</p>
+  <h2 class="section-headline reveal">I have been doing this<br>for a long time.<br>Just not always with that name.</h2>
+
+  <div class="section-body reveal">
+    <p>
+      For almost a decade I have been coaching match officials for Football Australia,
+      including the 2024 Australia Cup Final and the 2025 Australian Championship Grand Final.
+      The work I do pitchside is performance and mindset coaching.
+      <strong>I just never called it that.</strong>
+    </p>
+    <p>
+      I also co-founded RefCoach, a global referee coaching community that reached 5,000 members
+      and delivered mindset performance workshops to over 10,000 referees worldwide in partnership
+      with the Referees' Association of England.
+    </p>
+    <p>
+      In the tech world, I have led and rebuilt teams across startups and enterprise,
+      always applying the same coaching philosophy. The Deakin University team I inherited
+      had two people returning from stress leave and twelve months of leadership instability.
+      Within six months they outperformed the entire university on engagement by 10%.
+      That is not a process result. That is a people result.
+    </p>
+    <p>
+      I am currently working toward formal ICF accreditation through the
+      Diploma of Life Coaching at The Life Coaching College, Melbourne.
+      <strong>This is the direction I am heading.</strong>
+      If you want to work with someone at the start of that journey rather than
+      at the polished, packaged end of it, I am genuinely your person.
+    </p>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="coaching-cta">
+  <h2 class="cta-headline reveal">Not sure if this is for you?<br>That is exactly why we should talk.</h2>
+  <p class="cta-sub reveal">
+    No pitch. No package. Just an honest conversation about
+    <strong>where you are and whether I can help.</strong>
+  </p>
+  <div class="cta-buttons reveal">
+    <a href="mailto:ale.arbizzani@gmail.com?subject=Coaching conversation" class="btn-primary">Start a conversation</a>
+    <a href="https://www.linkedin.com/in/alessandroarbizzani" target="_blank" class="btn-ghost">Find me on LinkedIn</a>
+  </div>
+  <p class="cta-note reveal">Melbourne based. Open to remote conversations globally.</p>
+</div>
+
+<footer>
+  <span class="footer-name">Alessandro Arbizzani 2025</span>
+  <ul class="footer-links">
+    <li><a href="https://www.linkedin.com/in/alessandroarbizzani" target="_blank">LinkedIn</a></li>
+    <li><a href="mailto:ale.arbizzani@gmail.com">Email</a></li>
+  </ul>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

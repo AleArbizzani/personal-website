@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mojo Crowe | Alessandro Arbizzani</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --black: #0F0F0F; --white: #F5F5F5; --grey: #9CA3AF; --mid: #3A3A3A; --green: #4ADE80; --green-dim: #1a4a2e; --surface: #161616; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--black); color: var(--white); font-family: 'Inter', sans-serif; font-size: 17px; line-height: 1.65; overflow-x: hidden; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 20px 48px; background: rgba(15,15,15,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .nav-name { font-size: 15px; font-weight: 600; letter-spacing: 0.04em; color: var(--white); text-decoration: none; }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a { font-size: 14px; color: var(--grey); text-decoration: none; letter-spacing: 0.02em; transition: color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--white); }
+
+  .case-hero { padding: 140px 48px 80px; max-width: 900px; margin: 0 auto; }
+  .back-link { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--grey); text-decoration: none; margin-bottom: 48px; transition: color 0.2s; }
+  .back-link:hover { color: var(--white); }
+  .back-link::before { content: '←'; }
+  .case-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green); margin-bottom: 20px; }
+  .case-headline { font-family: 'DM Serif Display', serif; font-size: clamp(40px, 5vw, 64px); line-height: 1.05; color: var(--white); margin-bottom: 32px; }
+  .case-lede { font-size: 21px; line-height: 1.75; color: var(--grey); max-width: 720px; }
+  .case-lede strong { color: var(--white); font-weight: 500; }
+
+  .case-meta-bar { border-top: 1px solid var(--mid); border-bottom: 1px solid var(--mid); padding: 32px 48px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .meta-item-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); margin-bottom: 8px; }
+  .meta-item-value { font-size: 15px; color: var(--white); }
+
+  .case-body { max-width: 900px; margin: 0 auto; padding: 80px 48px 120px; }
+  .case-section { margin-bottom: 72px; }
+  .case-section-label { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--green); margin-bottom: 20px; }
+  .case-section h2 { font-family: 'DM Serif Display', serif; font-size: clamp(28px, 3vw, 40px); line-height: 1.15; color: var(--white); margin-bottom: 24px; }
+  .case-section p { font-size: 18px; line-height: 1.85; color: var(--grey); margin-bottom: 20px; }
+  .case-section p strong { color: var(--white); font-weight: 500; }
+  .case-section p:last-child { margin-bottom: 0; }
+
+  .pullquote { border-left: 3px solid var(--green); padding: 24px 32px; margin: 48px 0; background: var(--surface); }
+  .pullquote p { font-family: 'DM Serif Display', serif; font-size: 22px; line-height: 1.5; color: var(--white); font-style: italic; margin-bottom: 0; }
+
+  .image-placeholder { background: var(--surface); height: 420px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; margin: 48px 0; border: 1px dashed #333; }
+  .image-placeholder span { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #444; }
+  .image-placeholder small { font-size: 12px; color: #333; }
+
+  .outcome-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin: 48px 0; }
+  .outcome-block { background: var(--surface); padding: 36px; }
+  .outcome-num { font-family: 'DM Serif Display', serif; font-size: 44px; color: var(--white); line-height: 1; margin-bottom: 8px; }
+  .outcome-label { font-size: 13px; color: var(--grey); line-height: 1.5; }
+  .outcome-label strong { color: var(--green); font-weight: 600; display: block; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; }
+
+  .case-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 80px; border-top: 1px solid var(--mid); padding-top: 2px; }
+  .case-nav-item { background: var(--surface); padding: 36px; text-decoration: none; display: block; transition: background 0.2s; }
+  .case-nav-item:hover { background: #1c1c1c; }
+  .case-nav-dir { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--grey); margin-bottom: 12px; }
+  .case-nav-title { font-size: 18px; font-weight: 700; color: var(--white); }
+  .case-nav-item.next { text-align: right; }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  footer { border-top: 1px solid var(--mid); padding: 32px 48px; display: flex; justify-content: space-between; align-items: center; }
+  .footer-name { font-size: 13px; color: var(--grey); }
+  .footer-links { display: flex; gap: 24px; list-style: none; }
+  .footer-links a { font-size: 13px; color: var(--grey); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--white); }
+
+  @media (max-width: 900px) {
+    nav { padding: 18px 24px; }
+    .nav-links { display: none; }
+    .case-hero { padding: 110px 24px 60px; }
+    .case-meta-bar { grid-template-columns: 1fr 1fr; padding: 24px; }
+    .case-body { padding: 60px 24px 80px; }
+    .outcome-grid { grid-template-columns: 1fr; }
+    .case-nav { grid-template-columns: 1fr; }
+    .case-nav-item.next { text-align: left; }
+    footer { flex-direction: column; gap: 16px; padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-name">Ale Arbizzani</a>
+  <ul class="nav-links">
+    <li><a href="index.html#philosophy">Philosophy</a></li>
+    <li><a href="work.html" class="active">Work</a></li>
+    <li><a href="index.html#football">Football</a></li>
+    <li><a href="coaching.html">Coaching</a></li>
+    <li><a href="index.html#contact">Let's talk</a></li>
+  </ul>
+</nav>
+
+<div class="case-hero">
+  <a href="work.html" class="back-link">All case studies</a>
+  <p class="case-eyebrow">Mojo Crowe / 2020 to 2024</p>
+  <h1 class="case-headline reveal">Building a business<br>from a blank page.</h1>
+  <p class="case-lede reveal">
+    When we started, there was a founder with a vision, a prototype on a screen,
+    and no product. Four years later there were <strong>20,000 users, $1.8M ARR,
+    a team of 17 people, and a business that could run without its founder in the room.</strong>
+    Here is what it actually took.
+  </p>
+</div>
+
+<div class="case-meta-bar">
+  <div class="meta-item">
+    <div class="meta-item-label">Role</div>
+    <div class="meta-item-value">Co-Founder / Head of Product and Design</div>
+  </div>
+  <div class="meta-item">
+    <div class="meta-item-label">Product</div>
+    <div class="meta-item-value">B2C app, B2B portal, AI platform</div>
+  </div>
+  <div class="meta-item">
+    <div class="meta-item-label">Team scaled</div>
+    <div class="meta-item-value">4 to 17 people</div>
+  </div>
+</div>
+
+<div class="case-body">
+
+  <div class="case-section reveal">
+    <p class="case-section-label">The beginning</p>
+    <h2>A prototype, a phone call, and a yes.</h2>
+    <p>It started with a prototype. A fellow founder and I put together a concept for a mental performance app, sent it to Ben Crowe, one of Australia's most respected performance coaches, and he called back and said he was in. Twelve months of building before we launched publicly. Everything from scratch: the product, the design system, the team rituals, the commercial model, the hiring process.</p>
+    <p>My title was Head of Product and Design. My actual role was closer to co-CEO. I owned product strategy and roadmap, but also commercial decisions, P&L conversations, hiring calls, and the operational infrastructure that kept everything running. <strong>The goal from day one was to build a business that did not depend on Ben being in every room.</strong> Personal brand businesses fail when the brand gets tired. We were building something that could outlast any one person.</p>
+  </div>
+
+  <div class="image-placeholder reveal">
+    <span>Mojo Crowe App Screenshots</span>
+    <small>Replace with app screens from your portfolio</small>
+  </div>
+
+  <div class="case-section reveal">
+    <p class="case-section-label">The product</p>
+    <h2>0 to 20,000 users.</h2>
+    <p>The B2C app was a mental performance platform. Modules, video content, daily habits, journaling. Everything rooted in Ben's coaching methodology. My job was to translate that methodology into product decisions without diluting it, which meant being close to Ben while also being willing to push back when instinct and data disagreed.</p>
+    <p>We reached 20,000 users within two years of launch, driven by product-led growth and the strength of Ben's existing audience. NPS increased by 9 points across two quarters. Team satisfaction went from 3.9 to 4.4 within three months of me changing how we worked together.</p>
+    <p>Alongside the B2C app we built a B2B learning portal for corporate clients and started exploring an AI platform, partnering with Scalable.Care and UT Texas for research and experimentation. <strong>The Melbourne United partnership during the NBL24 season expanded our market reach by 23%.</strong></p>
+  </div>
+
+  <div class="pullquote reveal">
+    <p>"The best thing I can do as a leader is make myself unnecessary. Build capability, clarity, and systems that work without me. That was the goal at Mojo from day one."</p>
+  </div>
+
+  <div class="case-section reveal">
+    <p class="case-section-label">The team</p>
+    <h2>Building people, not just headcount.</h2>
+    <p>We scaled from 4 to 17 people across engineering, product, design, content, and marketing. Early on we made a hiring mistake, a senior engineer brought in without a proper process, who turned out to be the wrong fit technically and culturally. That experience taught me something important: <strong>the recruitment process is itself a product.</strong> I redesigned it completely.</p>
+    <p>From that point every hire went through a multi-stage process: phone screen, cross-functional culture panel, live skills assessment, and final founder interview. We never rushed it again. The team we built as a result was one of the things I am most proud of from those four years.</p>
+    <p>I applied the same coaching philosophy to the team that I apply pitchside. Ask questions rather than give answers. Build self-awareness before changing behaviour. Create psychological safety before asking for high performance. Employee satisfaction scores reflected that approach.</p>
+  </div>
+
+  <div class="case-section reveal">
+    <p class="case-section-label">The hard part</p>
+    <h2>What did not work, and why.</h2>
+    <p>I need to be honest about this. We made strategic errors in the final phase. We over-invested in B2C when the stronger commercial opportunity was in B2B. We had senior people in the wrong roles. We let unspoken tensions at leadership level go unaddressed for too long because of personal relationships and the pace of growth.</p>
+    <p>I was the one with the clearest commercial read on the situation. I flagged the problems. But I did not push hard enough on the conversations that needed to happen. I compensated by hiring when I should have confronted. <strong>That is a pattern I have since learned to name and interrupt.</strong></p>
+    <p>The business wound down to a leaner model. Ben continued with keynotes and courses. I moved on. But the four years produced something real: a platform that helped people through genuinely difficult moments in their lives. We had users tell us in research sessions that our product had kept them alive when nothing else had. That does not go away.</p>
+  </div>
+
+  <div class="outcome-grid reveal">
+    <div class="outcome-block">
+      <div class="outcome-num">20k</div>
+      <div class="outcome-label"><strong>Users</strong>Reached within two years of launch through product-led growth</div>
+    </div>
+    <div class="outcome-block">
+      <div class="outcome-num">$1.8M</div>
+      <div class="outcome-label"><strong>ARR</strong>Achieved across B2C app, B2B portal and digital programs</div>
+    </div>
+    <div class="outcome-block">
+      <div class="outcome-num">+9pts</div>
+      <div class="outcome-label"><strong>NPS</strong>Increase across two quarters through continuous feedback integration</div>
+    </div>
+  </div>
+
+  <div class="case-nav reveal">
+    <a href="work-deakin.html" class="case-nav-item">
+      <div class="case-nav-dir">Previous case study</div>
+      <div class="case-nav-title">Rebuilding Deakin from the inside out</div>
+    </a>
+    <a href="work-myarc.html" class="case-nav-item next">
+      <div class="case-nav-dir">Next case study</div>
+      <div class="case-nav-title">Shipping AI at MyARC</div>
+    </a>
+  </div>
+
+</div>
+
+<footer>
+  <span class="footer-name">Alessandro Arbizzani 2025</span>
+  <ul class="footer-links">
+    <li><a href="https://www.linkedin.com/in/alessandroarbizzani" target="_blank">LinkedIn</a></li>
+    <li><a href="mailto:ale.arbizzani@gmail.com">Email</a></li>
+  </ul>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
