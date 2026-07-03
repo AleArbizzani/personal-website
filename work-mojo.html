@@ -19,6 +19,12 @@
   .nav-links a { font-size: 14px; color: var(--grey); text-decoration: none; letter-spacing: 0.02em; transition: color 0.2s; }
   .nav-links a:hover, .nav-links a.active { color: var(--white); }
 
+  .nav-toggle { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 28px; height: 28px; background: none; border: none; padding: 0; cursor: pointer; }
+  .nav-toggle span { display: block; width: 100%; height: 2px; background: var(--white); border-radius: 1px; transition: transform 0.2s ease, opacity 0.2s ease; }
+  .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-toggle.open span:nth-child(2) { opacity: 0; }
+  .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
   .case-hero { padding: 140px 48px 80px; max-width: 900px; margin: 0 auto; }
   .back-link { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--grey); text-decoration: none; margin-bottom: 48px; transition: color 0.2s; }
   .back-link:hover { color: var(--white); }
@@ -69,9 +75,24 @@
   .footer-links a { font-size: 13px; color: var(--grey); text-decoration: none; transition: color 0.2s; }
   .footer-links a:hover { color: var(--white); }
 
-  @media (max-width: 900px) {
+  @media (max-width: 1023px) {
     nav { padding: 18px 24px; }
-    .nav-links { display: none; }
+    .nav-toggle { display: flex; }
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      gap: 0;
+      background: var(--black);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-links.open { display: flex; }
+    .nav-links li { width: 100%; }
+    .nav-links a { display: block; padding: 16px 24px; border-top: 1px solid rgba(255,255,255,0.06); }
     .case-hero { padding: 110px 24px 60px; }
     .case-meta-bar { grid-template-columns: 1fr 1fr; padding: 24px; }
     .case-body { padding: 60px 24px 80px; }
@@ -86,6 +107,9 @@
 
 <nav>
   <a href="index.html" class="nav-name">Ale Arbizzani</a>
+  <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
   <ul class="nav-links">
     <li><a href="index.html#philosophy">Philosophy</a></li>
     <li><a href="work.html" class="active">Work</a></li>
@@ -201,6 +225,23 @@
 </footer>
 
 <script>
+  const navToggle = document.querySelector('.nav-toggle');
+  const navLinksEl = document.querySelector('.nav-links');
+  if (navToggle && navLinksEl) {
+    navToggle.addEventListener('click', () => {
+      const isOpen = navLinksEl.classList.toggle('open');
+      navToggle.classList.toggle('open', isOpen);
+      navToggle.setAttribute('aria-expanded', String(isOpen));
+    });
+    navLinksEl.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        navLinksEl.classList.remove('open');
+        navToggle.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
